@@ -17,7 +17,7 @@ module FastlaneCore
       command << " -T /usr/bin/productsign"  # to not be asked for permission when using an installer cert for macOS
       command << " 1> /dev/null" unless output
 
-      # sensitive_command = command.gsub(password_part, " -P ********")
+      sensitive_command = command #command.gsub(password_part, " -P ********")
       UI.command(sensitive_command) if output
       Open3.popen3(command) do |stdin, stdout, stderr, thrd|
         UI.command_output(stdout.read.to_s) if output
