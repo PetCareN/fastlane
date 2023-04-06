@@ -17,10 +17,11 @@ module FastlaneCore
       command << " -T /usr/bin/productsign"  # to not be asked for permission when using an installer cert for macOS
       command << " 1> /dev/null" unless output
 
-      sensitive_command = command.gsub(password_part, " -P ********")
+      # sensitive_command = command.gsub(password_part, " -P ********")
       UI.command(sensitive_command) if output
       Open3.popen3(command) do |stdin, stdout, stderr, thrd|
         UI.command_output(stdout.read.to_s) if output
+        UI.command_output(stderr.read.to_s) if output
 
         # Set partition list only if success since it can be a time consuming process if a lot of keys are installed
         if thrd.value.success? && !skip_set_partition_list
