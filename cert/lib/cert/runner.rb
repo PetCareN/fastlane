@@ -37,11 +37,9 @@ module Cert
     end
 
     def run
-      # Cert.config[:output_path] = "./tmp-certs"
-      UI.message("mkdir -p #{Cert.config[:output_path]}")
       FileUtils.mkdir_p(Cert.config[:output_path])
 
-      FastlaneCore::PrintTable.print_values(config: Cert.config, hide_keys: [], title: "Summary for cert #{Fastlane::VERSION}")
+      FastlaneCore::PrintTable.print_values(config: Cert.config, hide_keys: [:output_path], title: "Summary for cert #{Fastlane::VERSION}")
 
       login
 
@@ -62,7 +60,7 @@ module Cert
 
     # Command method for the :revoke_expired sub-command
     def revoke_expired_certs!
-      FastlaneCore::PrintTable.print_values(config: Cert.config, hide_keys: [], title: "Summary for cert #{Fastlane::VERSION}")
+      FastlaneCore::PrintTable.print_values(config: Cert.config, hide_keys: [:output_path], title: "Summary for cert #{Fastlane::VERSION}")
 
       login
 
